@@ -1,0 +1,21 @@
+{
+  "name": "canguro-library",
+  "version": "3.0.0",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "node src/index",
+    "dev": "nodemon src/index"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "http-status": "^1.5.2",
+    "joi": "^17.6.0",
+    "mongoose": "^6.3.5",
+    "mongoose-delete": "^0.5.4",
+    "nodemailer": "^6.7.5",
+    "nodemon": "^2.0.16"
+  }
+}
