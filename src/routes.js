@@ -10,6 +10,11 @@ const User = require('./actions/User');
 const Mail = require('./actions/Mail');
 const { userSchemas, mailSchemas } = require('./schemas');
 
+// Index
+app.get('/', function (req, res) {
+  res.status(200).send('OK');
+});
+
 
 // Get a user by id
 app.get(
