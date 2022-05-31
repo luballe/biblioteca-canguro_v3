@@ -15,7 +15,6 @@ app.get('/', function (req, res) {
   res.status(200).send('OK');
 });
 
-
 // Get a user by id
 app.get(
   '/user/:id',
