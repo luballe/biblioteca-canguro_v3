@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kangaroo - Library</title>
+    <link rel="stylesheet" type="text/css" href="js/jsgrid/demos/demos.css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600,400' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="js/jsgrid/css/jsgrid.css" />
+    <link rel="stylesheet" type="text/css" href="js/jsgrid/css/theme.css" />
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <script src="js/jquery/jquery-1.10.2.js"></script>
+    <script src="js/jquery/jquery-ui.js"></script>
+    <script src="js/jquery/jquery.validate.min.js"></script>
+
+    <script src="js/jsgrid/db.js"></script>
+    <script src="js/jsgrid/src/jsgrid.core.js"></script>
+    <script src="js/jsgrid/src/jsgrid.load-indicator.js"></script>
+    <script src="js/jsgrid/src/jsgrid.load-strategies.js"></script>
+    <script src="js/jsgrid/src/jsgrid.sort-strategies.js"></script>
+    <script src="js/jsgrid/src/jsgrid.field.js"></script>
+    <script src="js/jsgrid/src/fields/jsgrid.field.text.js"></script>
+    <script src="js/jsgrid/src/fields/jsgrid.field.number.js"></script>
+    <script src="js/jsgrid/src/fields/jsgrid.field.select.js"></script>
+    <script src="js/jsgrid/src/fields/jsgrid.field.checkbox.js"></script>
+    <script src="js/jsgrid/src/fields/jsgrid.field.control.js"></script>
+
+    <script src="js/StreamSaver/StreamSaver.js"></script> <!-- load before streams polyfill to detect support -->
+    <script src="js/StreamSaver/polyfill.min.js"></script>
+    <!--script>
+      !streamSaver.supported && alert(
+        'In order to download individual files please use the latest version of Google Chrome'
+      )
+    </script-->
+    <link rel="stylesheet" type="text/css" href="css/jsgrid/style.css" />
+</head>
+<body>
+    <h1>Kangaroo - Library</h1>
+    <!--div align="right" style="margin-right:20px; margin-bottom:5px;">
+      <a type="button" href="/downloadBySubjectList">Download by Subjects List</a>
+    </div-->
+    <div align="right" style="margin-right:20px; margin-bottom:5px;">
+      <a type="button" href="/imagesInventory">Images Inventory</a>
+    </div>
+    <div id="manageUsers" align="right" style="margin-right:20px; margin-bottom:5px;">
+    </div>
+    <div align="right" style="margin-right:20px; margin-bottom:5px;">
+      <a type="button" href="/logout">Logout</a>
+    </div>
+    <div id="jsGrid"></div>
+
+    <div id="detailsDialog">
+      <form id="detailsForm">
+        <table>
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label for="SubjectID">Subject ID:</label>
+              </div>
+            </td>
+            <td>
+              <div class="details-form-field">
+                <input id="SubjectID" name="SubjectID" type="text" disabled/>
+              </div>
+            </td>
+            <td>
+              <div class="details-form-field">
+                <label for="Name">Name:</label>
+              </div>
+            </td>
+            <td>
+              <div class="details-form-field">
+                <input id="Name" name="Name" type="text" disabled/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label for="Cedula">Cedula:</label>
+              </div>
+            </td>
+            <td>
+              <div class="details-form-field">
+                <input id="Cedula" name="Cedula" type="text" disabled/>
+              </div>
+            </td>
+            <td>
+              <div class="details-form-field">
+                <label for="Group">Group:</label>
+              </div>
+            </td>
+            <td>
+              <div class="details-form-field">
+                <input id="Group" name="Group" type="text" disabled/>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <b>Subject Files</b>
+              </div>
+            </td>
+          </tr>
+        </table> 
+
+        <table id="dicomTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">From Resonator:</label>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table id="paradigmsTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">Paradigms:</label>
+              </div>
+            </td>
+          </tr>
+        </table> 
+        <table id="structuralTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">Structural:</label>
+              </div>
+            </td>
+          </tr>
+        </table> 
+        <table id="dtiTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">Diffusion Tensor Images:</label>
+              </div>
+            </td>
+          </tr>
+        </table> 
+        <table id="freesurferTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">Segmentation:</label>
+              </div>
+            </td>
+          </tr>
+        </table> 
+        <table id="caminoTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">Tractography:</label>
+              </div>
+            </td>
+          </tr>
+        </table> 
+        <table id="slicerTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">Slicer:</label>
+              </div>
+            </td>
+          </tr>
+        </table> 
+        <table id="fearSabrinaTable">
+          <tr>
+            <td>
+              <div class="details-form-field">
+                <label style="font-weight: 500 !important;">Fear Sabrina:</label>
+              </div>
+            </td>
+          </tr>
+        </table> 
+      </form>
+      <!--table id="buttonTable">
+        <tr>
+          <td>
+            <div class="details-form-field">
+              <button onClick="downloadSelected()" type="submit" style="width:150px" id="downloadSelected">Download All Selected</button>
+            </div>
+          </td>
+        </tr>
+      </table-->
+
+    </div>
+    <script src="js/jsgrid/grid.js"></script>
+    <script src="js/misc/main.js"></script>
+</body>
+</html>

@@ -6,14 +6,23 @@ const {
   validateSchema,
 } = require('./middleware');
 
+const Session = require('./actions/Session'); 
 const User = require('./actions/User');
 const Mail = require('./actions/Mail');
 const { userSchemas, mailSchemas } = require('./schemas');
 
+
 // Index
-app.get('/', function (req, res) {
-  res.status(200).send('OK');
-});
+app.get(
+  '/', 
+  Session.getIndex
+);
+
+app.post(
+  '/login',
+  validateSchema(userSchemas.login),
+  User.login
+);
 
 // Get a user by id
 app.get(

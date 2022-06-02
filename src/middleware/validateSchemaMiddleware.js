@@ -5,7 +5,8 @@ const validateSchema = (
   { forceQuery = false, abortEarly = true } = {}
 ) => {
   return async (req, res, next) => {
-    const user = req.locals.user;
+    const user = req.body.username;
+    req.locals = {}
     if (schema === undefined) {
       return res.status(500).send({
         message: 'An input schema must be defined',
@@ -35,7 +36,7 @@ const validateSchema = (
       selectedSchema = schema;
     }
 
-    //console.log('selectedSchema', selectedSchema);
+    console.log('selectedSchema', selectedSchema);
     if (selectedSchema) {
       const data = req.method === 'GET' || forceQuery ? req.query : req.body;
 
@@ -43,6 +44,8 @@ const validateSchema = (
         const value = await selectedSchema.validateAsync(data, {
           abortEarly: abortEarly,
         });
+        // console.log('value:')
+        // console.log(value);
         req.locals.data = value;
       } catch (error) {
         console.error(error);
