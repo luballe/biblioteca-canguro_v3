@@ -18,6 +18,7 @@ app.get(
   Session.getIndex
 );
 
+// Login
 app.post(
   '/login',
   validateSchema(userSchemas.login),

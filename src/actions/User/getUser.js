@@ -1,16 +1,12 @@
 'use strict';
-const httpStatus = require('http-status');
 const User = require('../../models/user');
 
-const getUser = async (req, res) => {
+const getUser = async (username) => {
   try {
-    const { id } = req.params;
-    const userDoc = await User.findById(id);
-    return res.json(userDoc);
+    const userDoc = await User.find({'username': username});
+    return userDoc;
   } catch (e) {
-    return res.status(httpStatus.BAD_REQUEST).json({
-      message: e.message,
-    });
+      console.log(e.message);
   }
 };
 

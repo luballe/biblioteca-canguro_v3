@@ -36,7 +36,7 @@ const validateSchema = (
       selectedSchema = schema;
     }
 
-    console.log('selectedSchema', selectedSchema);
+    // console.log('selectedSchema', selectedSchema);
     if (selectedSchema) {
       const data = req.method === 'GET' || forceQuery ? req.query : req.body;
 

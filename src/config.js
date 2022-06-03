@@ -5,6 +5,7 @@ const Config = {
   DB_NAME: process.env.DB_NAME,
   DB_USERNAME: process.env.DB_USERNAME,
   DB_PASSWORD: process.env.DB_PASSWORD,
+  DB_AUTH_SOURCE: process.env.DB_AUTH_SOURCE,
 };
   
 module.exports = Config;
