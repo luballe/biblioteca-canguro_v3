@@ -3,6 +3,7 @@ var path = require('path')
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
 const User = require('../User/getUser')
+const CreateSession = require('../Session/create')
 
 const login = async (req, res) => {
   try {
@@ -28,28 +29,18 @@ const login = async (req, res) => {
       //   console.log(user[0].hash)
       // });
       // let result = false
-      bcrypt.compare(password, user[0].hash, function(err, result) {
-        if (err){
-          console.log(err)
-        }
-        else{
-          if (result == false){
-            console.log(`Wrong Password!`)
-            res.sendFile(path.join(__dirname + '../../../static/main/index2.html'));
-          }
-          else{
-            console.log('OK Password')
-            return res.status(200).send(user)
-          }
-        }
-      });
-      // return res.status(200).send(user)
+      if (!await bcrypt.compare(password, user[0].hash)){
+        console.log(`Wrong Password: ${password}`)
+        res.sendFile(path.join(__dirname + '../../../static/main/index2.html'));
+      }
+      else{
+        
+        let token = CreateSession(user[0].id)
+        return res.status(200).send(user)
+      }
+
     }
 
-    // console.log('res')
-    // console.log(res)
-    // return res.sendFile(path.join(__dirname + '../../../static/main/index.html'));
-    
   } catch (e) {
     return res.status(httpStatus.BAD_REQUEST).json({
       message: e.message,

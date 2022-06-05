@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const mongooseDelete = require('mongoose-delete');
-const Constants = require('../lib/constants');
 
 const UserSchema = new mongoose.Schema(
   {

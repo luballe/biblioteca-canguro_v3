@@ -14,7 +14,7 @@ mongoose.connect(mongoURL, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
-console.log(`Connected to "${DB_NAME}"!`);
+console.log(`Connected to "${DB_NAME}" DB!`);
 
 console.log('Initiating server...');
 app.listen(SERVER_PORT, () => {
